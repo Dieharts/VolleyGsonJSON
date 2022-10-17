@@ -88,7 +88,7 @@ public class ItemDetailFragment extends Fragment {
 
     private void updateContent() {
         if (modelItem != null) {
-            mTextView.setText(modelItem.getRecentConsole());
+            mTextView.setText(modelItem.getDiscription());
             if (mToolbarLayout != null) {
                 mToolbarLayout.setTitle(modelItem.getName());
             }

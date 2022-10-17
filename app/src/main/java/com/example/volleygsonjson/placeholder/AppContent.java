@@ -34,7 +34,7 @@ public class AppContent {
     public void jsonParse(Activity activity)
     {
         RequestQueue queue = Volley.newRequestQueue(activity);
-        String url = activity.getString(R.string.Url);
+        String url = activity.getString(R.string.MyUrl);
         // Request a string response from the provided URL.
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -43,16 +43,16 @@ public class AppContent {
                         // NEXT, we need to use GSON to turn that JSON into a model
                         try {
                             JSONObject object = response.getJSONObject("record");
-                            JSONArray jsonArray = object.getJSONArray("gameCompanies");
+                            JSONArray jsonArray = object.getJSONArray("FalloutNewVegasFactions");
                             MODELS.clear();
                             MODELS_MAP.clear();
                             for(int i = 0; i < jsonArray.length(); i++)
                             {
                                 JSONObject gameCompany = jsonArray.getJSONObject(i);
                                 String name = gameCompany.getString("name");
-                                Integer year = gameCompany.getInt("year");
-                                String recentConsole = gameCompany.getString("recentConsole");
-                                App model = new App(name, year, recentConsole);
+                                Integer founded_year = gameCompany.getInt("founded_year");
+                                String descrip = gameCompany.getString("descrip");
+                                App model = new App(name, founded_year,descrip);
                                 MODELS.add(model);
                                 MODELS_MAP.put(name, model);
                             }
