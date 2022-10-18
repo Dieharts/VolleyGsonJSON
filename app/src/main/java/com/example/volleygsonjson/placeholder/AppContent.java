@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.volleygsonjson.App;
 import com.example.volleygsonjson.R;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,7 @@ public class AppContent {
 
     public static final List<App> MODELS = new ArrayList<>();
     public static final Map<String, App> MODELS_MAP = new HashMap<>();
+    private static boolean BUILT = false;
 
     public void jsonParse(Activity activity)
     {
@@ -49,14 +51,17 @@ public class AppContent {
                             for(int i = 0; i < jsonArray.length(); i++)
                             {
                                 JSONObject gameCompany = jsonArray.getJSONObject(i);
-                                String name = gameCompany.getString("name");
-                                Integer year = gameCompany.getInt("year");
-                                String recentConsole = gameCompany.getString("recentConsole");
-                                App model = new App(name, year, recentConsole);
+                                String json = String.valueOf(gameCompany);
+                                Gson gson = new Gson();
+                                App model = gson.fromJson(json, App.class);
+
                                 MODELS.add(model);
-                                MODELS_MAP.put(name, model);
+                                MODELS_MAP.put(model.getName(), model);
                             }
-                            activity.recreate();
+                            if(!BUILT) {
+                                BUILT = true;
+                                activity.recreate();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
