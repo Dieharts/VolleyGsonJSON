@@ -7,7 +7,7 @@ public class App {
     private String factionName;
     @SerializedName("founded_year")
     private Integer foundedYear;
-    @SerializedName("discrip")
+    @SerializedName("descrip")
     private String description;
 
     //Initializer for model
@@ -22,7 +22,7 @@ public class App {
 
     public Integer getYear() {return foundedYear;}
 
-    public String getDiscription() {return description;}
+    public String getDescription() {return description;}
 
 
     //Setters
